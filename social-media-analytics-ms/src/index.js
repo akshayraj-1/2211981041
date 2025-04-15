@@ -4,19 +4,21 @@ const express = require("express");
 const cors = require("cors");
 
 dotenv.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV?.trim()}`) });
+const usersRouter = require("./routes/users.routes");
+const postsRouter = require("./routes/posts.routes");
 
 const PORT = process.env.PORT;
 const app = express();
 
-// Middlerwares
+// Middlewares
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     allowedHeaders: ["GET", "OPTIONS"],
 }));
 
-
-
-
+// Routes
+app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 
 
 app.listen(PORT, (error) => {
